@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>杭州视频播放器</title>
+    <title>城市简介</title>
+	<div id="loading-animation">
+	    <img src="res/c.png" alt="Loading...">
+	</div>
     <style>
         /* 设置背景样式 */
         body, html {
@@ -105,6 +108,41 @@
             width: 150px; /* 增加花朵图片的宽度 */
             height: auto;
         }
+		  /* 加载动画样式 */
+		    #loading-animation {
+		        position: fixed;
+		        top: 0;
+		        left: 0;
+		        width: 100%;
+		        height: 100%;
+		        background-image: url('res/b.png'); /* 背景图片 */
+		                   background-size: cover;
+		                   background-position: center;
+		                   background-attachment: fixed;
+		                   height: 100%;
+		        display: flex;
+		        justify-content: center;
+		        align-items: center;
+		        z-index: 1000; /* 确保加载动画在最上层 */
+		    }
+		    /* 动画图片样式 */
+		    #loading-animation img {
+		        width: 50px; /* 初始宽度 */
+		        height: auto; /* 保持图片比例 */
+		        animation: moveAndFadeOut 5s ease-out forwards; /* 动画效果 */
+		    }
+			 /* 定义关键帧动画 */
+			 @keyframes moveAndFadeOut {
+			     0% {
+			         transform: translateX(-100vw) scale(10); /* 初始位置和放大两倍 */
+			         opacity: 1; /* 初始不透明 */
+			     }
+			     100% {
+			         transform: translateX(160vw) scale(20); /* 移动到右下角并放大三倍 */
+			         opacity: 1;
+			     }
+			 }
+
     </style>
 </head>
 <body>
@@ -161,6 +199,12 @@
 
         // 每隔一段时间生成一朵新的花朵
         setInterval(spawnFlower, 1500); //
+		  // 动画结束后隐藏加载动画元素并显示正常界面
+		    setTimeout(function() {
+		        document.getElementById('loading-animation').style.display = 'none'; // 隐藏加载动画
+		        // 如果页面内容被隐藏，取消隐藏页面内容的代码
+		        // document.body.style.overflow = 'auto'; // 允许滚动
+		    }, 2000); // 3秒后隐藏动画元素
     </script>
 </body>
 </html>
